@@ -24,7 +24,7 @@ class Command(BaseCommand):
                 'user': users.get(pk=3),
                 'course': None,
                 'lesson': lessons.get(pk=2),
-                'payment_amount': 180000,
+                'payment_amount': 1000,
                 'payment_method': 'cash',
             },
             {
@@ -38,7 +38,14 @@ class Command(BaseCommand):
                 'user': users.get(pk=4),
                 'course': None,
                 'lesson': lessons.get(pk=1),
-                'payment_amount': 180000,
+                'payment_amount': 500,
+                'payment_method': 'cash',
+            },
+            {
+                'user': users.get(pk=4),
+                'course': courses.get(pk=2),
+                'lesson': None,
+                'payment_amount': 200000,
                 'payment_method': 'cash',
             },
 
@@ -47,7 +54,7 @@ class Command(BaseCommand):
         for i in payments:
             payment = Payment.objects.create(
                 user=i.get('user'),
-                course=i.get('course'),
+                course=i.get('course') if i.get('course') else i.get('lesson').course,
                 lesson=i.get('lesson'),
                 payment_amount=i.get('payment_amount'),
                 payment_method=i.get('payment_method'),
