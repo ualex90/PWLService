@@ -33,16 +33,16 @@ class Command(BaseCommand):
             },
         ]
         count = 0
-        for u in users:
+        for i in users:
             user = User.objects.create(
-                email=u.get('email'),
-                first_name=u.get('first_name'),
-                last_name=u.get('last_name'),
-                is_staff=u.get('is_staff'),
-                is_active=u.get('is_active'),
+                email=i.get('email'),
+                first_name=i.get('first_name'),
+                last_name=i.get('last_name'),
+                is_staff=i.get('is_staff'),
+                is_active=i.get('is_active'),
             )
-            user.set_password(u.get('password'))
+            user.set_password(i.get('password'))
             user.save()
             count += 1
 
-            print(f'{count}. email: {user.email}, password: {u.get("password")};')
+            print(f'{count}. email: {user.email}, password: {i.get("password")};')
