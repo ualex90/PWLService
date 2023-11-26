@@ -1,7 +1,7 @@
 from rest_framework import generics
 
 from app_pwl.models import Lesson
-from app_pwl.serializers.lesson import LessonSerializer
+from app_pwl.serializers.lesson import LessonSerializer, LessonListSerializer
 
 
 class LessonCreateAPIView(generics.CreateAPIView):
@@ -9,7 +9,7 @@ class LessonCreateAPIView(generics.CreateAPIView):
 
 
 class LessonListAPIView(generics.ListAPIView):
-    serializer_class = LessonSerializer
+    serializer_class = LessonListSerializer
     queryset = Lesson.objects.all()
 
 
