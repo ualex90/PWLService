@@ -1,12 +1,15 @@
 from django.db import models
 
-from app_users.models import NULLABLE
+from app_users.models import NULLABLE, User
+from config import settings
+from django.utils.translation import gettext_lazy as _
 
 
 class Course(models.Model):
-    name = models.CharField(max_length=50, verbose_name="Название")
-    description = models.TextField(verbose_name="Описание")
-    image = models.ImageField(verbose_name="Превью", **NULLABLE)
+    name = models.CharField(max_length=50, verbose_name=_("Name"))
+    description = models.TextField(verbose_name=_("Description"))
+    image = models.ImageField(verbose_name=_("image"), **NULLABLE)
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name=_("Owner"), **NULLABLE)
 
     class Meta:
         verbose_name = "Курс"
@@ -18,11 +21,12 @@ class Course(models.Model):
 
 
 class Lesson(models.Model):
-    name = models.CharField(max_length=50, verbose_name="Название")
-    description = models.TextField(verbose_name="Описание")
+    name = models.CharField(max_length=50, verbose_name=_("Name"))
+    description = models.TextField(verbose_name=_("Description"))
     course = models.ForeignKey(Course, on_delete=models.CASCADE, verbose_name="Курс", related_name="lessons")
-    image = models.ImageField(verbose_name="Превью", **NULLABLE)
-    video = models.CharField(max_length=150, verbose_name="Ссылка на видео", **NULLABLE)
+    image = models.ImageField(verbose_name=_("image"), **NULLABLE)
+    video = models.CharField(max_length=150, verbose_name=_("Link to video"), **NULLABLE)
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name=_("Owner"), **NULLABLE)
 
     class Meta:
         verbose_name = "Урок"
