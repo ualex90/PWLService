@@ -45,10 +45,13 @@ class LessonTest(APITestCase):
         # Принудительно аутентифицируем пользователя
         self.client.force_authenticate(user=self.user)
 
+        # Считаем количество уроков в базе данных
+        lesson_count = Lesson.objects.all().count()
+
         data = {
             "name": "Test Lesson",
             "description": "Description Test Lesson",
-            "course": "1",
+            "course": self.course.id,
         }
 
         response = self.client.post(
@@ -56,54 +59,74 @@ class LessonTest(APITestCase):
             data=data
         )
 
+        # Проверяем что объект успешно создан
         self.assertEquals(
             response.status_code,
             status.HTTP_201_CREATED
         )
 
+        # Проверяем что в базе данных стало на 1 урок больше
         self.assertEquals(
             Lesson.objects.all().count(),
-            3
+            lesson_count + 1
         )
 
-    def test_lesson_creat_validation_error(self):
-        """Тестирование валидации при создании урока"""
+    def test_lesson_creat_validation(self):
+        """Тестирование валидации при создании урока c допустимой ссылкой"""
 
         # Принудительно аутентифицируем пользователя
         self.client.force_authenticate(user=self.user)
 
-        data_valid = {
-            "name": "Test Lesson",
-            "description": "Description Test Lesson",
-            "course": "1",
-            "video": "https://www.youtube.com/watch?v=cfJrtx-k96U&pp=ygUV0YPRgNC-0Log0LfQvdC10YDRidGC"
-        }
-
-        data_invalid = {
-            "name": "Test Lesson",
-            "description": "Description Test Lesson",
-            "course": "1",
-            "video": "https://dzen.ru/video/watch/6560c727888ea253658647c4"
-        }
+        link_valid = [
+            "https://www.youtube.com/watch?v=qweasdzxc",
+            "www.youtube.com/watch?v=qweasdzxc",
+            "youtube.com/watch?v=qweasdzxc",
+            "https://youtu.be/qweasdzxc",
+            "youtu.be/mHQXz5FctRg",
+        ]
 
         # Проверка заведома правильной ссылки
-        response = self.client.post(
-            reverse("app_pwl:lesson_create"),
-            data=data_valid
-        )
+        for link in link_valid:
+            response = self.client.post(
+                reverse("app_pwl:lesson_create"),
+                data={
+                    "name": "Test Lesson",
+                    "description": "Description Test Lesson",
+                    "course": self.course.id,
+                    "video": link
+                }
+            )
 
-        self.assertEquals(
-            response.status_code,
-            status.HTTP_201_CREATED
-        )
+            self.assertEquals(
+                response.status_code,
+                status.HTTP_201_CREATED
+            )
 
-        # Проверка неправильной ссылки
-        response = self.client.post(
-            reverse("app_pwl:lesson_create"),
-            data=data_invalid
-        )
+    def test_lesson_creat_validation_error(self):
+        """Тестирование валидации при создании урока c недопустимой ссылкой"""
 
-        self.assertEquals(
-            response.status_code,
-            status.HTTP_400_BAD_REQUEST
-        )
+        # Принудительно аутентифицируем пользователя
+        self.client.force_authenticate(user=self.user)
+
+        link_invalid = [
+            "https://dzen.ru/video/watch/qweasdzxc",
+            "dzen.ru/video/watch/qweqweqwe",
+            "https://vk.com/video-123123123_123123123"
+            "vk.com/video-123123123_123123123"
+        ]
+
+        for link in link_invalid:
+            response = self.client.post(
+                reverse("app_pwl:lesson_create"),
+                data={
+                    "name": "Test Lesson",
+                    "description": "Description Test Lesson",
+                    "course": self.course.id,
+                    "video": link
+                }
+            )
+
+            self.assertEquals(
+                response.status_code,
+                status.HTTP_400_BAD_REQUEST
+            )
