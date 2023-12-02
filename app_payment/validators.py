@@ -5,27 +5,12 @@ from rest_framework.serializers import ValidationError
 VALID_LINK = ["youtube.com", "youtu.be"]
 
 
-class VideoLinkValidator:
-    """
-    Валидация поля ссылки урока
-    Разрешены только ссылки на youtube.com
-    """
-    def __init__(self, field):
-        self.field = field
-
-    def __call__(self, value):
-        link = dict(value).get(self.field)
-        if link:
-            if not link.lstrip("https://www.").split("/")[0] in VALID_LINK:
-                raise ValidationError("The link to the video should only be from Youtube")
-
-
-class MaterialsValidator:
+class LinkValidator:
     """
     Валидация текстовых полей ссылки урока
     Разрешены только ссылки на youtube.com
     """
-    def __init__(self, *args):
+    def __init__(self, *args):  # Можно указывать несколько полей списком
         self.fields = args
 
     def __call__(self, value):
