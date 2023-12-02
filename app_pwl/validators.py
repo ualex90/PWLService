@@ -17,7 +17,7 @@ class LinkValidator:
         val_dict = {field: dict(value).get(field) for field in self.fields}
         reg = re.compile('^(https?:\/\/)?'  # протокол
                          '([\w-]{1,32}\.[\w-]{1,32})'  # домен
-                         '([^\s@]*)'  # любой не пробельный символ + @ для исключения email-ов
+                         '([^\s@]*)'  # любой не пробельный символ + @ для исключения из проверки email адресов
                          '$')
         for field, value in val_dict.items():
             if value:
