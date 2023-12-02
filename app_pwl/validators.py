@@ -26,4 +26,4 @@ class LinkValidator:
                     if text:
                         if not value.lstrip("https://www.").split("/")[0] in VALID_LINK:
                             raise ValidationError(f"Invalid link: '{value}' in the '{field}' field. "
-                                                  f"You can only post links to youtube.com")
+                                                  f"You can only post links to youtube.com or email")
