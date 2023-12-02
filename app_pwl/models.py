@@ -24,6 +24,7 @@ class Lesson(models.Model):
     name = models.CharField(max_length=50, verbose_name=_("Name"))
     description = models.TextField(verbose_name=_("Description"))
     course = models.ForeignKey(Course, on_delete=models.CASCADE, verbose_name="Курс", related_name="lessons")
+    body = models.TextField(verbose_name=_("Lesson Materials"), **NULLABLE)
     image = models.ImageField(verbose_name=_("image"), **NULLABLE)
     video = models.CharField(max_length=150, verbose_name=_("Link to video"), **NULLABLE)
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name=_("Owner"), **NULLABLE)
