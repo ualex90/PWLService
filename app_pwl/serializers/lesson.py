@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from app_payment.validators import LinkValidator
+from app_pwl.validators import LinkValidator
 from app_pwl.models import Lesson
 
 
