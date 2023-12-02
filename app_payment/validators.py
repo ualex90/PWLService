@@ -1,13 +1,15 @@
 import re
 
 from rest_framework.serializers import ValidationError
-from django.utils.translation import gettext_lazy as _
 
 VALID_LINK = ["youtube.com", "youtu.be"]
 
 
 class VideoLinkValidator:
-
+    """
+    Валидация поля ссылки урока
+    Разрешены только ссылки на youtube.com
+    """
     def __init__(self, field):
         self.field = field
 
@@ -15,10 +17,14 @@ class VideoLinkValidator:
         link = dict(value).get(self.field)
         if link:
             if not link.lstrip("https://www.").split("/")[0] in VALID_LINK:
-                raise ValidationError(_("The link to the video should only be from Youtube"))
+                raise ValidationError("The link to the video should only be from Youtube")
 
 
 class MaterialsValidator:
+    """
+    Валидация текстовых полей ссылки урока
+    Разрешены только ссылки на youtube.com
+    """
     def __init__(self, *args):
         self.fields = args
 
@@ -29,9 +35,10 @@ class MaterialsValidator:
                          '[^\s@]*'  # любой не пробельный символ + @
                          '$')
         for field, value in val_dict.items():
-            for value in value.split():
-                text = bool(reg.match(value))
-                if text:
-                    if not value.lstrip("https://www.").split("/")[0] in VALID_LINK:
-                        raise ValidationError(f'Invalid link: "{value}" in the "{field}" field. '
-                                              f'You can only post links to youtube.com')
+            if value:
+                for value in value.split():
+                    text = bool(reg.match(value))
+                    if text:
+                        if not value.lstrip("https://www.").split("/")[0] in VALID_LINK:
+                            raise ValidationError(f"Invalid link: '{value}' in the '{field}' field. "
+                                                  f"You can only post links to youtube.com")

@@ -110,8 +110,8 @@ class LessonTest(APITestCase):
         link_invalid = [
             "https://dzen.ru/video/watch/qweasdzxc",
             "dzen.ru/video/watch/qweqweqwe",
-            "https://vk.com/video-123123123_123123123"
-            "vk.com/video-123123123_123123123"
+            "https://vk.com/video-123123123_123123123",
+            "vk.com/video-123123123_123123123",
         ]
 
         for link in link_invalid:
@@ -191,8 +191,8 @@ class LessonTest(APITestCase):
         text_invalid_list = [
             "Text https://dzen.ru/video/watch/qweasdzxc z. q/w",
             "text dzen.ru/video/watch/qweqweqwe ru, qwe? yu/yu",
-            "vid https://vk.com/video-123123123_123123123 go,"
-            "nm, vk.com/video-123123123_123123123 jkl"
+            "vid https://vk.com/video-123123123_123123123 go,",
+            "nm, vk.com/video-123123123_123123123 jkl",
         ]
 
         for text in text_invalid_list:
@@ -226,4 +226,3 @@ class LessonTest(APITestCase):
                     response.status_code,
                     status.HTTP_400_BAD_REQUEST
                 )
-                print(response.json())
