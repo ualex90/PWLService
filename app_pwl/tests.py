@@ -142,7 +142,7 @@ class LessonTest(APITestCase):
         text_invalid_list = [
             "https://dzen.ru/video/watch/qweasdzxc",
             "dzen.ru/video/watch/qweqweqwe",
-            "https://vk.com/video-123123123_123123123",# Текст ограничен 50 символами (согласно максимальной длины для поля "name")
+            "https://vk.com/video-123123123_123123123",
             "vk.com/video-123123123_123123123",
             "Text https://dzen.ru/video/watch/qweasdzxc z. q/w",
             "text dzen.ru/video/watch/qweqweqwe ru, qwe? yu/yu",
