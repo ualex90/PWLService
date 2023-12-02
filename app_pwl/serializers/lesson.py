@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from app_payment.validators import VideoLinkValidator
+from app_payment.validators import VideoLinkValidator, MaterialsValidator
 from app_pwl.models import Lesson
 
 
@@ -16,6 +16,7 @@ class LessonCreateSerializer(serializers.ModelSerializer):
         fields = "__all__"
         validators = [
             VideoLinkValidator('video'),
+            MaterialsValidator('name', 'description', 'body')
         ]
 
 

@@ -71,8 +71,8 @@ class LessonTest(APITestCase):
             lesson_count + 1
         )
 
-    def test_lesson_creat_validation(self):
-        """Тестирование валидации при создании урока c допустимой ссылкой"""
+    def test_lesson_video_link_validation(self):
+        """Тестирование валидации при создании урока с допустимой ссылкой"""
 
         # Принудительно аутентифицируем пользователя
         self.client.force_authenticate(user=self.user)
@@ -85,7 +85,6 @@ class LessonTest(APITestCase):
             "youtu.be/mHQXz5FctRg",
         ]
 
-        # Проверка заведома правильной ссылки
         for link in link_valid:
             response = self.client.post(
                 reverse("app_pwl:lesson_create"),
@@ -102,8 +101,8 @@ class LessonTest(APITestCase):
                 status.HTTP_201_CREATED
             )
 
-    def test_lesson_creat_validation_error(self):
-        """Тестирование валидации при создании урока c недопустимой ссылкой"""
+    def test_lesson_video_link_validation_error(self):
+        """Тестирование валидации при создании урока с недопустимой ссылкой"""
 
         # Принудительно аутентифицируем пользователя
         self.client.force_authenticate(user=self.user)
@@ -130,3 +129,101 @@ class LessonTest(APITestCase):
                 response.status_code,
                 status.HTTP_400_BAD_REQUEST
             )
+
+    def test_lesson_materials_validation(self):
+        """
+        Тестирование валидации при создании тела урока,
+        названия и описания с допустимой ссылкой
+        """
+
+        # Принудительно аутентифицируем пользователя
+        self.client.force_authenticate(user=self.user)
+
+        text_valid_list = [
+            "Тест https://www.youtube.com/watch?v=qweasdzxc Ok",
+            "Проверка www.youtube.com/watch?v=qweasdzxc link",
+            "Проверка youtube.com/watch?v=qweasdzxc link",
+            "Проверка https://youtu.be/qweasdzxc link",
+            "Проверка youtu.be/mHQXz5FctRg link. qwe/qwe",
+        ]
+
+        for text in text_valid_list:
+            data_list = [
+                {
+                    "name": text,
+                    "description": "Description Test Lesson",
+                    "body": "Test text fo test",
+                    "course": self.course.id,
+                },
+                {
+                    "name": "Test Lesson",
+                    "description": text,
+                    "body": "Test text fo test",
+                    "course": self.course.id,
+                },
+                {
+                    "name": "Test Lesson",
+                    "description": "Description Test Lesson",
+                    "body": text,
+                    "course": self.course.id,
+                },
+            ]
+            for data in data_list:
+                response = self.client.post(
+                    reverse("app_pwl:lesson_create"),
+                    data=data
+                )
+
+                self.assertEquals(
+                    response.status_code,
+                    status.HTTP_201_CREATED
+                )
+
+    def test_lesson_materials_validation_error(self):
+        """
+        Тестирование валидации при создании тела урока,
+        названия и описания с не допустимой ссылкой
+        """
+
+        # Принудительно аутентифицируем пользователя
+        self.client.force_authenticate(user=self.user)
+
+        text_invalid_list = [
+            "Text https://dzen.ru/video/watch/qweasdzxc z. q/w",
+            "text dzen.ru/video/watch/qweqweqwe ru, qwe? yu/yu",
+            "vid https://vk.com/video-123123123_123123123 go,"
+            "nm, vk.com/video-123123123_123123123 jkl"
+        ]
+
+        for text in text_invalid_list:
+            data_list = [
+                {
+                    "name": text,
+                    "description": "Description Test Lesson",
+                    "body": "Test text fo test",
+                    "course": self.course.id,
+                },
+                {
+                    "name": "Test Lesson",
+                    "description": text,
+                    "body": "Test text fo test",
+                    "course": self.course.id,
+                },
+                {
+                    "name": "Test Lesson",
+                    "description": "Description Test Lesson",
+                    "body": text,
+                    "course": self.course.id,
+                },
+            ]
+            for data in data_list:
+                response = self.client.post(
+                    reverse("app_pwl:lesson_create"),
+                    data=data
+                )
+
+                self.assertEquals(
+                    response.status_code,
+                    status.HTTP_400_BAD_REQUEST
+                )
+                print(response.json())
