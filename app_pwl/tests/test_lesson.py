@@ -507,8 +507,6 @@ class LessonTest(APITestCase):
                     data=data
                 )
 
-                print(response.json())
-
                 self.assertEquals(
                     response.status_code,
                     status.HTTP_400_BAD_REQUEST
