@@ -2,7 +2,7 @@ from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
 
 from app_pwl.models import Lesson
-from app_pwl.permissions import IsModerator, IsOwner
+from app_users.permissions import IsModerator, IsOwner
 from app_pwl.serializers.lesson import LessonSerializer, LessonListSerializer, LessonCreateSerializer
 
 

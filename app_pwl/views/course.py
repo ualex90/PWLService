@@ -1,9 +1,8 @@
 from django.db.models import Count
 from rest_framework import viewsets
-from rest_framework.permissions import IsAuthenticated
 
 from app_pwl.models import Course
-from app_pwl.permissions import IsModerator, IsOwner
+from app_users.permissions import IsModerator, IsOwner
 from app_pwl.serializers.course import CourseSerializer, CourseListSerializer, CourseRetrieveSerializer
 
 

@@ -96,28 +96,6 @@ class LessonTest(APITestCase):
             lesson_count + 1
         )
 
-    def test_lesson_create_authenticated_error(self):
-        """ Тестирование ошибки доступа при создании урока без аутентификации """
-
-        # Выходим из системы
-        self.client.force_authenticate(user=None)
-
-        data = {
-            "name": "Test Lesson",
-            "description": "Description Test Lesson",
-            "course": self.course.id,
-        }
-
-        response = self.client.post(
-            reverse("app_pwl:lesson_create"),
-            data=data
-        )
-
-        self.assertEquals(
-            response.status_code,
-            status.HTTP_401_UNAUTHORIZED
-        )
-
     def test_lesson_create_moderator_error(self):
         """ Тестирование ошибки доступа при создании урока модератором """
 
@@ -138,6 +116,28 @@ class LessonTest(APITestCase):
         self.assertEquals(
             response.status_code,
             status.HTTP_403_FORBIDDEN
+        )
+
+    def test_lesson_create_authenticated_error(self):
+        """ Тестирование ошибки доступа при создании урока без аутентификации """
+
+        # Выходим из системы
+        self.client.force_authenticate(user=None)
+
+        data = {
+            "name": "Test Lesson",
+            "description": "Description Test Lesson",
+            "course": self.course.id,
+        }
+
+        response = self.client.post(
+            reverse("app_pwl:lesson_create"),
+            data=data
+        )
+
+        self.assertEquals(
+            response.status_code,
+            status.HTTP_401_UNAUTHORIZED
         )
 
     def test_lesson_list(self):
@@ -225,21 +225,6 @@ class LessonTest(APITestCase):
                 }
             )
 
-    def test_lesson_retrieve_authenticated_error(self):
-        """ Тестирование ошибки доступа при выводе урока без аутентификации """
-
-        # Аутентифицируем пользователя
-        self.client.force_authenticate(user=None)
-
-        response = self.client.get(
-            reverse("app_pwl:lesson_retrieve", kwargs={"pk": self.lesson1.id}),
-        )
-
-        self.assertEquals(
-            response.status_code,
-            status.HTTP_401_UNAUTHORIZED
-        )
-
     def test_lesson_retrieve_owner_error(self):
         """ Тестирование ошибки доступа при выводе урока пользователем не создававшего его """
 
@@ -253,6 +238,21 @@ class LessonTest(APITestCase):
         self.assertEquals(
             response.status_code,
             status.HTTP_403_FORBIDDEN
+        )
+
+    def test_lesson_retrieve_authenticated_error(self):
+        """ Тестирование ошибки доступа при выводе урока без аутентификации """
+
+        # Выходим из системы
+        self.client.force_authenticate(user=None)
+
+        response = self.client.get(
+            reverse("app_pwl:lesson_retrieve", kwargs={"pk": self.lesson1.id}),
+        )
+
+        self.assertEquals(
+            response.status_code,
+            status.HTTP_401_UNAUTHORIZED
         )
 
     def test_lesson_update_by_owner(self):
@@ -323,6 +323,46 @@ class LessonTest(APITestCase):
             }
         )
 
+    def test_lesson_update_owner_error(self):
+        """ Тестирование ошибки доступа изменения урока пользователем не создававшем его """
+
+        # Аутентифицируем другого пользователя
+        self.client.force_authenticate(user=self.user_2)
+
+        data = {
+            "body": "Test updated by moderator",
+        }
+
+        response = self.client.patch(
+            reverse("app_pwl:lesson_update", kwargs={"pk": self.lesson1.id}),
+            data=data
+        )
+
+        self.assertEquals(
+            response.status_code,
+            status.HTTP_403_FORBIDDEN
+        )
+
+    def test_lesson_update_authenticated_error(self):
+        """ Тестирование ошибки доступа изменения урока без аутентификации """
+
+        # Выходим из системы
+        self.client.force_authenticate(user=None)
+
+        data = {
+            "body": "Test updated by moderator",
+        }
+
+        response = self.client.patch(
+            reverse("app_pwl:lesson_update", kwargs={"pk": self.lesson1.id}),
+            data=data
+        )
+
+        self.assertEquals(
+            response.status_code,
+            status.HTTP_401_UNAUTHORIZED
+        )
+
     def test_lesson_destroy_by_owner(self):
         """ Тестирование удаления урока его создателем """
 
@@ -341,7 +381,6 @@ class LessonTest(APITestCase):
                 "course": self.course.id,
             }
         )
-        print()
 
         # Считаем количество уроков в базе данных после создания урока
         lesson_count_created = Lesson.objects.all().count()
@@ -372,7 +411,7 @@ class LessonTest(APITestCase):
             self.client.force_authenticate(user=user)
 
             # Создаем урок от пользователя
-            self.lesson = Lesson.objects.create(
+            lesson = Lesson.objects.create(
                 name="Test Lesson by user_1",
                 description="Description Test Lesson by user_1",
                 course=self.course,
@@ -383,15 +422,12 @@ class LessonTest(APITestCase):
             lesson_count_created = Lesson.objects.all().count()
 
             response = self.client.delete(
-                reverse("app_pwl:lesson_destroy", kwargs={"pk": self.lesson.id}),
+                reverse("app_pwl:lesson_destroy", kwargs={"pk": lesson.id}),
             )
-
-            # Считаем количество уроков в базе данных после удаления урока
-            lesson_count_deleted = Lesson.objects.all().count()
 
             # Проверяем что урок не был удален
             self.assertTrue(
-                lesson_count_created == lesson_count_deleted
+                Lesson.objects.all().count() == lesson_count_created
             )
 
             # Проверяем ответ, должна быть ошибка прав доступа
@@ -399,6 +435,37 @@ class LessonTest(APITestCase):
                 response.status_code,
                 status.HTTP_403_FORBIDDEN
             )
+
+    def test_lesson_destroy_authenticated_error(self):
+        """ Тестирование ошибки доступа при удалении урока без аутентификации """
+
+        # Выходим из системы
+        self.client.force_authenticate(user=None)
+
+        # Создаем урок от пользователя
+        self.lesson = Lesson.objects.create(
+            name="Test Lesson by user_1",
+            description="Description Test Lesson by user_1",
+            course=self.course,
+            owner=self.user_1,
+        )
+
+        # Считаем изначальное количество уроков в базе данных до удаления
+        lesson_count_created = Lesson.objects.all().count()
+
+        response = self.client.delete(
+            reverse("app_pwl:lesson_destroy", kwargs={"pk": self.lesson.id}),
+        )
+
+        self.assertEquals(
+            response.status_code,
+            status.HTTP_401_UNAUTHORIZED
+        )
+
+        # Проверяем что урок не был удален
+        self.assertTrue(
+            Lesson.objects.all().count() == lesson_count_created
+        )
 
     def test_lesson_materials_validation(self):
         """
