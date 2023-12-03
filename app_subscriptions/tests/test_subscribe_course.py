@@ -42,10 +42,16 @@ class LessonTest(APITestCase):
         self.moderator.groups.add(self.group_moderator)
         self.moderator.save()
 
-        # Course
-        self.course = Course.objects.create(
-            name="Test Course",
-            description="Description Test Course"
+        # Courses
+        self.course_1 = Course.objects.create(
+            name="Test Course_1",
+            description="Description Test Course_1",
+            owner=self.user_1
+        )
+        self.course_2 = Course.objects.create(
+            name="Test Course_2",
+            description="Description Test Course_2",
+            owner=self.user_1
         )
 
     def test_subscribe_course(self):
@@ -60,7 +66,7 @@ class LessonTest(APITestCase):
         response = self.client.post(
             reverse("app_subscriptions:subscribe_course"),
             data={
-                "course": self.course.id
+                "course": self.course_1.id
             }
         )
 
@@ -88,7 +94,7 @@ class LessonTest(APITestCase):
         response = self.client.post(
             reverse("app_subscriptions:subscribe_course"),
             data={
-                "course": self.course.id
+                "course": self.course_1.id
             }
         )
 
@@ -96,7 +102,7 @@ class LessonTest(APITestCase):
         response_duplicate = self.client.post(
             reverse("app_subscriptions:subscribe_course"),
             data={
-                "course": self.course.id
+                "course": self.course_1.id
             }
         )
 
@@ -130,7 +136,7 @@ class LessonTest(APITestCase):
         response = self.client.post(
             reverse("app_subscriptions:subscribe_course"),
             data={
-                "course": self.course.id
+                "course": self.course_1.id
             }
         )
 
@@ -158,7 +164,7 @@ class LessonTest(APITestCase):
         response = self.client.post(
             reverse("app_subscriptions:subscribe_course"),
             data={
-                "course": self.course.id
+                "course": self.course_1.id
             }
         )
 
@@ -182,7 +188,7 @@ class LessonTest(APITestCase):
         # Создаем подписку от имени user_1
         subscription = Subscription.objects.create(
             owner=self.user_1,
-            course=self.course,
+            course=self.course_1,
         )
 
         # Аутентифицируем обычного пользователя
@@ -215,7 +221,7 @@ class LessonTest(APITestCase):
         # Создаем подписку от имени user_1
         subscription = Subscription.objects.create(
             owner=self.user_1,
-            course=self.course,
+            course=self.course_1,
         )
 
         for user in [self.user_2, self.moderator]:
@@ -249,7 +255,7 @@ class LessonTest(APITestCase):
         # Создаем подписку от имени user_1
         subscription = Subscription.objects.create(
             owner=self.user_1,
-            course=self.course,
+            course=self.course_1,
         )
 
         # Выходим из системы
@@ -271,4 +277,112 @@ class LessonTest(APITestCase):
         # Проверяем что количество подписок не изменилось
         self.assertTrue(
             Subscription.objects.all().count() == subscription_count
+        )
+
+    def test_subscriptions_in_course_list(self):
+        """ Тестирование наличия информации о подписанных пользователях в экземпляре course """
+
+        # Создадим дополнительный курс
+        course_3 = Course.objects.create(
+            name="Test Course_3",
+            description="Description Test Course_3",
+            owner=self.user_2
+        )
+
+        # Создаем подписку от имени user_2 на course_2
+        subscription = Subscription.objects.create(
+            owner=self.user_2,
+            course=self.course_2,
+        )
+
+        # Аутентифицируем user_2
+        self.client.force_authenticate(user=self.user_2)
+
+        response = self.client.get(
+            '/course/',
+        )
+
+        # Проверяем что пользователь user_2 подписан только на курс course_2
+        self.assertEquals(
+            response.json(),
+            {
+                'count': 3,
+                'next': None,
+                'previous': None,
+                'results': [
+                    {
+                        'id': self.course_1.id,
+                        'lesson_count': 0,
+                        'is_subscribe': False,
+                        'name': 'Test Course_1',
+                        'description': 'Description Test Course_1',
+                        'image': None,
+                        'owner': self.user_1.id
+                    },
+                    {
+                        'id': self.course_2.id,
+                        'lesson_count': 0,
+                        'is_subscribe': True,
+                        'name': 'Test Course_2',
+                        'description': 'Description Test Course_2',
+                        'image': None,
+                        'owner': self.user_1.id
+                    },
+                    {
+                        'id': course_3.id,
+                        'lesson_count': 0,
+                        'is_subscribe': False,
+                        'name': 'Test Course_3',
+                        'description': 'Description Test Course_3',
+                        'image': None,
+                        'owner': self.user_2.id
+                    }
+                ]
+            }
+        )
+
+        # Аутентифицируем user_1
+        self.client.force_authenticate(user=self.user_1)
+
+        response = self.client.get(
+            '/course/',
+        )
+
+        # Проверяем что пользователь user_1 не подписан ни на один курс
+        self.assertEquals(
+            response.json(),
+            {
+                'count': 3,
+                'next': None,
+                'previous': None,
+                'results': [
+                    {
+                        'id': self.course_1.id,
+                        'lesson_count': 0,
+                        'is_subscribe': False,
+                        'name': 'Test Course_1',
+                        'description': 'Description Test Course_1',
+                        'image': None,
+                        'owner': self.user_1.id
+                    },
+                    {
+                        'id': self.course_2.id,
+                        'lesson_count': 0,
+                        'is_subscribe': False,
+                        'name': 'Test Course_2',
+                        'description': 'Description Test Course_2',
+                        'image': None,
+                        'owner': self.user_1.id
+                    },
+                    {
+                        'id': course_3.id,
+                        'lesson_count': 0,
+                        'is_subscribe': False,
+                        'name': 'Test Course_3',
+                        'description': 'Description Test Course_3',
+                        'image': None,
+                        'owner': self.user_2.id
+                    }
+                ]
+            }
         )

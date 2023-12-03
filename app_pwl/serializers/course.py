@@ -1,8 +1,9 @@
 from rest_framework import serializers
-from rest_framework.fields import IntegerField, ListField, SerializerMethodField
+from rest_framework.fields import IntegerField, ListField
 
-from app_pwl.models import Course, Lesson
+from app_pwl.models import Course
 from app_pwl.serializers.lesson import LessonListSerializer
+from app_subscriptions.serializers.course import SubscribeCourseSerializer
 
 
 class CourseSerializer(serializers.ModelSerializer):
@@ -14,10 +15,14 @@ class CourseSerializer(serializers.ModelSerializer):
 
 class CourseListSerializer(serializers.ModelSerializer):
     lesson_count = IntegerField()  # Поле определяется в queryset во view
+    is_subscribe = serializers.SerializerMethodField()
 
     class Meta:
         model = Course
         fields = '__all__'
+
+    def get_is_subscribe(self, instance):
+        return bool(instance.subscribers.filter(owner=self.context.get("request").user))
 
 
 class CourseRetrieveSerializer(serializers.ModelSerializer):
