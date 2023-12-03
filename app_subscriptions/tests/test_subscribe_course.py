@@ -8,7 +8,7 @@ from app_subscriptions.models import Subscription
 from app_users.models import User
 
 
-class LessonTest(APITestCase):
+class SubscriptionTest(APITestCase):
     def setUp(self):
         """ Создание необходимых в тестах объектов """
 
