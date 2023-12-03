@@ -1,9 +1,9 @@
 from django.db.models import Count
 from rest_framework import viewsets
-from rest_framework.permissions import IsAuthenticated
 
 from app_pwl.models import Course
-from app_pwl.permissions import IsModerator, IsOwner
+from app_pwl.paginators import CoursePaginator
+from app_users.permissions import IsModerator, IsOwner
 from app_pwl.serializers.course import CourseSerializer, CourseListSerializer, CourseRetrieveSerializer
 
 
@@ -15,6 +15,7 @@ class CourseViewSet(viewsets.ModelViewSet):
         "list": CourseListSerializer,
         "retrieve": CourseRetrieveSerializer,
     }
+    pagination_class = CoursePaginator
 
     def get_serializer_class(self):
         return self.serializers.get(self.action, self.default_serializer)

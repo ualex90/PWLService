@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'app_users',
     'app_pwl',
     'app_payment',
+    'app_subscriptions'
 ]
 
 MIDDLEWARE = [
@@ -150,8 +151,6 @@ REST_FRAMEWORK = {
     'DATETIME_FORMAT': '%Y-%m-%d %H:%M:%S',
     'DATE_FORMAT': '%Y-%m-%d',
     'TIME_FORMAT': '%H:%M',
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 4,
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ],

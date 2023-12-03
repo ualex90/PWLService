@@ -2,12 +2,13 @@ from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
 
 from app_pwl.models import Lesson
-from app_pwl.permissions import IsModerator, IsOwner
-from app_pwl.serializers.lesson import LessonSerializer, LessonListSerializer
+from app_pwl.paginators import LessonPaginator
+from app_users.permissions import IsModerator, IsOwner
+from app_pwl.serializers.lesson import LessonSerializer, LessonListSerializer, LessonCreateSerializer
 
 
 class LessonCreateAPIView(generics.CreateAPIView):
-    serializer_class = LessonSerializer
+    serializer_class = LessonCreateSerializer
 
     # Можно создавать только авторизованным пользователям не являющимся модераторами
     permission_classes = [IsAuthenticated, ~IsModerator]
@@ -21,6 +22,7 @@ class LessonCreateAPIView(generics.CreateAPIView):
 class LessonListAPIView(generics.ListAPIView):
     serializer_class = LessonListSerializer
     queryset = Lesson.objects.all()
+    pagination_class = LessonPaginator
 
     # Просматривать список может любой авторизованный пользователь (заданно в settings)
 
