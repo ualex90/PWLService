@@ -1,89 +1,24 @@
 [
   {
-    "model": "admin.logentry",
-    "pk": 1,
-    "fields": {
-      "action_time": "2023-11-28T13:07:05.410Z",
-      "user": 1,
-      "content_type": 3,
-      "object_id": "1",
-      "object_repr": "Модераторы",
-      "action_flag": 1,
-      "change_message": "[{\"added\": {}}]"
-    }
-  },
-  {
-    "model": "admin.logentry",
-    "pk": 2,
-    "fields": {
-      "action_time": "2023-11-28T13:20:28.188Z",
-      "user": 1,
-      "content_type": 3,
-      "object_id": "1",
-      "object_repr": "Moderator",
-      "action_flag": 2,
-      "change_message": "[{\"changed\": {\"fields\": [\"Name\"]}}]"
-    }
-  },
-  {
-    "model": "admin.logentry",
-    "pk": 3,
-    "fields": {
-      "action_time": "2023-11-28T13:22:10.048Z",
-      "user": 1,
-      "content_type": 6,
-      "object_id": "2",
-      "object_repr": "ivanov@sky.pro",
-      "action_flag": 2,
-      "change_message": "[{\"changed\": {\"fields\": [\"Groups\"]}}]"
-    }
-  },
-  {
-    "model": "admin.logentry",
-    "pk": 4,
-    "fields": {
-      "action_time": "2023-11-28T13:22:13.988Z",
-      "user": 1,
-      "content_type": 6,
-      "object_id": "2",
-      "object_repr": "ivanov@sky.pro",
-      "action_flag": 2,
-      "change_message": "[]"
-    }
-  },
-  {
     "model": "auth.group",
     "pk": 1,
     "fields": {
       "name": "Moderator",
-      "permissions": [
-        26,
-        28,
-        30,
-        32
-      ]
-    }
-  },
-  {
-    "model": "sessions.session",
-    "pk": "531a8chutj8l5ng6v8xz7ddrm444hvbp",
-    "fields": {
-      "session_data": ".eJxVjMsOwiAQAP-FsyEL5dF69N5vIAu7SNXQpLQn478bkh70OjOZtwh47CUcjbewkLgKJS6_LGJ6cu2CHljvq0xr3bclyp7I0zY5r8Sv29n-DQq20rfaodPKU0Q1-pSd5WHCkQk4g7VgfLZapcmQVuAUJMeeEdGbRDDELD5f1yY36w:1r7xGR:PFCYjZc_6yz8cjuEpidhmiLnxCxMIURgBWdGK-fi9y4",
-      "expire_date": "2023-12-12T12:32:31.568Z"
+      "permissions": []
     }
   },
   {
     "model": "app_users.user",
     "pk": 1,
     "fields": {
-      "password": "pbkdf2_sha256$600000$DSMqZOd8TuAXA4Hif9RaZJ$4gUkNQio1yVXQfVn2VxZZeYqFBQ9Sc9nYaX5/IWe/f4=",
-      "last_login": "2023-11-28T12:32:31.565Z",
+      "password": "pbkdf2_sha256$600000$MKfFH9ZCnWPQXYdwpPiGNO$M45HdQLFaqR2GErCB+UweOYyNIiQOOsCjaFhCtOkbjQ=",
+      "last_login": null,
       "is_superuser": true,
       "first_name": "Admin",
       "last_name": "SkyPro",
       "is_staff": true,
       "is_active": true,
-      "date_joined": "2023-11-21T10:22:52.387Z",
+      "date_joined": "2023-12-04T14:40:11.664Z",
       "email": "admin@sky.pro",
       "phone": null,
       "city": null,
@@ -96,14 +31,14 @@
     "model": "app_users.user",
     "pk": 2,
     "fields": {
-      "password": "pbkdf2_sha256$600000$mmbEzz7uqoP6J2RgAK2WYd$QhEJfwpubEbhw+50eP+rkk3T6acgBueo5xM26D6isic=",
+      "password": "pbkdf2_sha256$600000$4xYIAJDBcTwNWzcN1eZfm6$bS88CY8KP3wqe53E/cyKeTguC0tGJiy6Y4sdt0X3sj4=",
       "last_login": null,
       "is_superuser": false,
       "first_name": "Иван",
       "last_name": "Иванов",
       "is_staff": false,
       "is_active": true,
-      "date_joined": "2023-11-26T02:55:38Z",
+      "date_joined": "2023-12-04T14:40:17.827Z",
       "email": "ivanov@sky.pro",
       "phone": null,
       "city": null,
@@ -118,14 +53,14 @@
     "model": "app_users.user",
     "pk": 3,
     "fields": {
-      "password": "pbkdf2_sha256$600000$q6JKGaMxJKMJ6KPPJKNA8V$8Jop/DdUO8eMZA0mA15H0fr8u+IVM2yLiF2ukpmLlJg=",
+      "password": "pbkdf2_sha256$600000$t84DhtvX1YuvpwSXpw5H24$I4Ixc1mID6d7+ZW5M1bzWeqA6UQRJDiXj/Jj6yT9FWE=",
       "last_login": null,
       "is_superuser": false,
       "first_name": "Петр",
       "last_name": "Петров",
       "is_staff": false,
       "is_active": true,
-      "date_joined": "2023-11-26T02:55:38.687Z",
+      "date_joined": "2023-12-04T14:40:18.089Z",
       "email": "petrov@sky.pro",
       "phone": null,
       "city": null,
@@ -138,14 +73,14 @@
     "model": "app_users.user",
     "pk": 4,
     "fields": {
-      "password": "pbkdf2_sha256$600000$1u9xQxcBCXcIlbB59bb5fO$+4xq2eEZfpli1yqzfCiobQdNGxW73khnWab8gd78gYU=",
+      "password": "pbkdf2_sha256$600000$R0Q0qcz3odoU5bvLopufl4$vUmIWJQSh9LUlpsJc5OBsyn+HBPdBlBSdDWTRXxL/j8=",
       "last_login": null,
       "is_superuser": false,
       "first_name": "Сидор",
       "last_name": "Сидоров",
       "is_staff": false,
       "is_active": true,
-      "date_joined": "2023-11-26T02:55:38.952Z",
+      "date_joined": "2023-12-04T14:40:18.344Z",
       "email": "sidorov@sky.pro",
       "phone": null,
       "city": null,
@@ -158,20 +93,28 @@
     "model": "app_pwl.course",
     "pk": 1,
     "fields": {
-      "name": "Python",
-      "description": "Курс программирования на языке Python",
+      "name": "Курс 1",
+      "description": "Описание Курса 1",
       "image": "",
-      "owner": 3
+      "owner": 4,
+      "amount": 4400,
+      "currency": "RUB",
+      "stripe_product_id": "prod_P7t6iiWtsV7dl6",
+      "stripe_prise_id": "price_1OJdKJBCFyaMmyJEUpZFJhcx"
     }
   },
   {
     "model": "app_pwl.course",
     "pk": 2,
     "fields": {
-      "name": "C",
-      "description": "Курс программирования на языке Си",
+      "name": "Курс 2",
+      "description": "Описание Курса 2",
       "image": "",
-      "owner": 4
+      "owner": 3,
+      "amount": 4400,
+      "currency": "RUB",
+      "stripe_product_id": "prod_P7t8jRg5TabmGo",
+      "stripe_prise_id": "price_1OJdLoBCFyaMmyJEjsJrHxab"
     }
   },
   {
@@ -179,71 +122,101 @@
     "pk": 1,
     "fields": {
       "name": "Урок 1",
-      "description": "Знакомство с языком",
+      "description": "Описание урока 1",
       "course": 1,
+      "body": "Тестовая запись урока для проверки работоспособности. Это поле содежит полезные/безполезные данные. Проверим, попробуем с разными знаками! Зачем? А так надо. Проверим ссылку которую можно: https://youtu.be/82DKIKRgAdw?si=3MzKzMAUA47qpUD- и низя",
       "image": "",
-      "video": null,
-      "owner": 3
+      "video": "https://youtu.be/82DKIKRgAdw?si=3MzKzMAUA47qpUD-",
+      "owner": 4,
+      "amount": 550,
+      "currency": "RUB",
+      "stripe_product_id": "prod_P7t6rkNx7FGy9W",
+      "stripe_prise_id": "price_1OJdKQBCFyaMmyJEP6ziQHco"
     }
   },
   {
     "model": "app_pwl.lesson",
     "pk": 2,
     "fields": {
-      "name": "Урок 1",
-      "description": "Что такое Си?",
-      "course": 2,
+      "name": "Урок 2",
+      "description": "Описание урока 2",
+      "course": 1,
+      "body": "Тестовая запись урока для проверки работоспособности. Это поле содежит полезные/безполезные данные. Проверим, попробуем с разными знаками! Зачем? А так надо. Проверим ссылку которую можно: https://youtu.be/82DKIKRgAdw?si=3MzKzMAUA47qpUD- и низя",
       "image": "",
-      "video": null,
-      "owner": 4
+      "video": "https://youtu.be/82DKIKRgAdw?si=3MzKzMAUA47qpUD-",
+      "owner": 4,
+      "amount": 450,
+      "currency": "RUB",
+      "stripe_product_id": "prod_P7t7CXSPX6ugyW",
+      "stripe_prise_id": "price_1OJdKoBCFyaMmyJEWOsJYvEE"
+    }
+  },
+  {
+    "model": "app_pwl.lesson",
+    "pk": 3,
+    "fields": {
+      "name": "Урок 3",
+      "description": "Описание урока 3",
+      "course": 1,
+      "body": "Тестовая запись урока для проверки работоспособности. Это поле содежит полезные/безполезные данные. Проверим, попробуем с разными знаками! Зачем? А так надо. Проверим ссылку которую можно: https://youtu.be/82DKIKRgAdw?si=3MzKzMAUA47qpUD- и низя",
+      "image": "",
+      "video": "https://youtu.be/82DKIKRgAdw?si=3MzKzMAUA47qpUD-",
+      "owner": 4,
+      "amount": 545,
+      "currency": "RUB",
+      "stripe_product_id": "prod_P7t7FVeRhL4SJF",
+      "stripe_prise_id": "price_1OJdL3BCFyaMmyJECHQJstzC"
     }
   },
   {
     "model": "app_pwl.lesson",
     "pk": 4,
     "fields": {
-      "name": "Урок 2",
-      "description": "Какие бывают данные в Python",
+      "name": "Урок 1",
+      "description": "Описание урока 1",
       "course": 1,
+      "body": "Тестовая запись урока для проверки работоспособности. Это поле содежит полезные/безполезные данные. Проверим, попробуем с разными знаками! Зачем? А так надо. Проверим ссылку которую можно: https://youtu.be/82DKIKRgAdw?si=3MzKzMAUA47qpUD- и низя",
       "image": "",
-      "video": null,
-      "owner": 3
+      "video": "https://youtu.be/82DKIKRgAdw?si=3MzKzMAUA47qpUD-",
+      "owner": 3,
+      "amount": 445,
+      "currency": "RUB",
+      "stripe_product_id": "prod_P7t8UYKZXQRHBg",
+      "stripe_prise_id": "price_1OJdM8BCFyaMmyJEzljjRa92"
     }
   },
   {
     "model": "app_pwl.lesson",
     "pk": 5,
     "fields": {
-      "name": "Урок 3",
-      "description": "Описание урока 3",
+      "name": "Урок 2",
+      "description": "Описание урока 2",
       "course": 1,
+      "body": "Тестовая запись урока для проверки работоспособности. Это поле содежит полезные/безполезные данные. Проверим, попробуем с разными знаками! Зачем? А так надо. Проверим ссылку которую можно: https://youtu.be/82DKIKRgAdw?si=3MzKzMAUA47qpUD- и низя",
       "image": "",
-      "video": null,
-      "owner": 3
+      "video": "https://youtu.be/82DKIKRgAdw?si=3MzKzMAUA47qpUD-",
+      "owner": 3,
+      "amount": 447,
+      "currency": "RUB",
+      "stripe_product_id": "prod_P7t8A8IlNhCGCU",
+      "stripe_prise_id": "price_1OJdMJBCFyaMmyJE7ujaYKmr"
     }
   },
   {
     "model": "app_pwl.lesson",
     "pk": 6,
     "fields": {
-      "name": "Урок 4",
-      "description": "Описание урока 4",
+      "name": "Урок 3",
+      "description": "Описание урока 3",
       "course": 1,
+      "body": "Тестовая запись урока для проверки работоспособности. Это поле содежит полезные/безполезные данные. Проверим, попробуем с разными знаками! Зачем? А так надо. Проверим ссылку которую можно: https://youtu.be/82DKIKRgAdw?si=3MzKzMAUA47qpUD- и низя",
       "image": "",
-      "video": null,
-      "owner": 3
-    }
-  },
-  {
-    "model": "app_pwl.lesson",
-    "pk": 7,
-    "fields": {
-      "name": "Урок 5",
-      "description": "Описание урока 5",
-      "course": 1,
-      "image": "",
-      "video": null,
-      "owner": 3
+      "video": "https://youtu.be/82DKIKRgAdw?si=3MzKzMAUA47qpUD-",
+      "owner": 3,
+      "amount": 449,
+      "currency": "RUB",
+      "stripe_product_id": "prod_P7t8Obxc6z4hzS",
+      "stripe_prise_id": "price_1OJdMSBCFyaMmyJEbpc4Nm0W"
     }
   },
   {
@@ -304,6 +277,42 @@
       "lesson": null,
       "payment_amount": "200000.00",
       "payment_method": "cash"
+    }
+  },
+  {
+    "model": "app_payment.stripesession",
+    "pk": 1,
+    "fields": {
+      "user": 4,
+      "create_date": "2023-12-04T14:48:19.399Z",
+      "payment_amount": "550.00",
+      "course": null,
+      "lesson": 1,
+      "session_url": "https://checkout.stripe.com/c/pay/cs_test_a16g7mfp2ogr4gqJX4OlKTJ0At0ESNW8TEToSP27nTPO1Pg621whZiQgpk#fidkdWxOYHwnPyd1blpxYHZxWjA0Sk9QS1xHRkN8ZEhofE9ASjVjN0ZcUVBWblZzdnVhUzxqbmwzUlZvZkdjYnw1d0xTX3ZJMD1EcEZAMkRJQ3BVNzRnRDBmSmhPfVZqMmFrZ1VQN1Q2VH1GNTVLMW1ff0BzYCcpJ2N3amhWYHdzYHcnP3F3cGApJ2lkfGpwcVF8dWAnPyd2bGtiaWBabHFgaCcpJ2BrZGdpYFVpZGZgbWppYWB3dic%2FcXdwYHgl"
+    }
+  },
+  {
+    "model": "app_payment.stripesession",
+    "pk": 2,
+    "fields": {
+      "user": 4,
+      "create_date": "2023-12-04T14:49:30.204Z",
+      "payment_amount": "450.00",
+      "course": null,
+      "lesson": 2,
+      "session_url": "https://checkout.stripe.com/c/pay/cs_test_a1eVOcpYYIUNxRyWCxtNm8DR661VwtZvj4kp2yr8IXAqeN1vH1v0XcwY81#fidkdWxOYHwnPyd1blpxYHZxWjA0Sk9QS1xHRkN8ZEhofE9ASjVjN0ZcUVBWblZzdnVhUzxqbmwzUlZvZkdjYnw1d0xTX3ZJMD1EcEZAMkRJQ3BVNzRnRDBmSmhPfVZqMmFrZ1VQN1Q2VH1GNTVLMW1ff0BzYCcpJ2N3amhWYHdzYHcnP3F3cGApJ2lkfGpwcVF8dWAnPyd2bGtiaWBabHFgaCcpJ2BrZGdpYFVpZGZgbWppYWB3dic%2FcXdwYHgl"
+    }
+  },
+  {
+    "model": "app_payment.stripesession",
+    "pk": 3,
+    "fields": {
+      "user": 4,
+      "create_date": "2023-12-04T14:49:41.632Z",
+      "payment_amount": "4400.00",
+      "course": 1,
+      "lesson": null,
+      "session_url": "https://checkout.stripe.com/c/pay/cs_test_a1sNTURfwGjw1gMjgpCvAZYpnH1T0KYDLzo4fNCZPcYOa9cxEX0XTyiCG0#fidkdWxOYHwnPyd1blpxYHZxWjA0Sk9QS1xHRkN8ZEhofE9ASjVjN0ZcUVBWblZzdnVhUzxqbmwzUlZvZkdjYnw1d0xTX3ZJMD1EcEZAMkRJQ3BVNzRnRDBmSmhPfVZqMmFrZ1VQN1Q2VH1GNTVLMW1ff0BzYCcpJ2N3amhWYHdzYHcnP3F3cGApJ2lkfGpwcVF8dWAnPyd2bGtiaWBabHFgaCcpJ2BrZGdpYFVpZGZgbWppYWB3dic%2FcXdwYHgl"
     }
   }
 ]
