@@ -64,3 +64,5 @@ if __name__ == "__main__":
     pass
     # create_stripe_product("Test product 1")
     # print(create_stripe_session("price_1OJb0OBCFyaMmyJELOCFsTtQ"))
+
+    test_session_url = "https://checkout.stripe.com/c/pay/cs_test_a1lhs1rVT6othyngxMgs4DUJlo5kMD4w1E9nMUEzJythlFHMcFKJpcN8Pk#fidkdWxOYHwnPyd1blpxYHZxWjA0Sk9QS1xHRkN8ZEhofE9ASjVjN0ZcUVBWblZzdnVhUzxqbmwzUlZvZkdjYnw1d0xTX3ZJMD1EcEZAMkRJQ3BVNzRnRDBmSmhPfVZqMmFrZ1VQN1Q2VH1GNTVLMW1ff0BzYCcpJ2N3amhWYHdzYHcnP3F3cGApJ2lkfGpwcVF8dWAnPyd2bGtiaWBabHFgaCcpJ2BrZGdpYFVpZGZgbWppYWB3dic%2FcXdwYHgl"
