@@ -168,11 +168,13 @@ class LessonTest(APITestCase):
                         [
                             {
                                 'id': self.lesson1.id,
+                                'course': self.course.id,
                                 'name': 'Test Lesson 1',
                                 'description': 'Description Test Lesson 1'
                             },
                             {
                                 'id': self.lesson2.id,
+                                'course': self.course.id,
                                 'name': 'Test Lesson 2',
                                 'description': 'Description Test Lesson 2'
                             }

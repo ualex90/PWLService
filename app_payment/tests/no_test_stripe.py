@@ -58,7 +58,7 @@ class StripeTest(APITestCase):
 
     def test_course_create(self):
         """
-        Тестирование создания урока на "stripe.com"
+        Тестирование создания курса на "stripe.com"
         """
 
         # Аутентифицируем обычного пользователя
