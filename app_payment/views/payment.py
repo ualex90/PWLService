@@ -4,7 +4,7 @@ from rest_framework.filters import OrderingFilter
 
 from app_payment.models import Payment
 from app_payment.paginators import PaymentPaginator
-from app_payment.serializers import PaymentSerializer
+from app_payment.serializers.payment import PaymentSerializer
 
 
 class PaymentListAPIView(generics.ListAPIView):
