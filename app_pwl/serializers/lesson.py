@@ -14,6 +14,7 @@ class LessonCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Lesson
         fields = "__all__"
+        read_only_fields = ('owner', 'stripe_product_id', 'stripe_prise_id')
         validators = [
             LinkValidator('video', 'name', 'description', 'body')
         ]

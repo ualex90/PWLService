@@ -11,6 +11,7 @@ class CourseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Course
         fields = '__all__'
+        read_only_fields = ('owner', 'stripe_product_id', 'stripe_prise_id')
 
 
 class CourseListSerializer(serializers.ModelSerializer):
