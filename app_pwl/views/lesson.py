@@ -8,6 +8,8 @@ from app_pwl.serializers.lesson import LessonSerializer, LessonListSerializer, L
 
 
 class LessonCreateAPIView(generics.CreateAPIView):
+    """ Create a new lesson """
+
     serializer_class = LessonCreateSerializer
 
     # Можно создавать только авторизованным пользователям не являющимся модераторами
@@ -20,6 +22,8 @@ class LessonCreateAPIView(generics.CreateAPIView):
 
 
 class LessonListAPIView(generics.ListAPIView):
+    """ Get lesson list """
+
     serializer_class = LessonListSerializer
     queryset = Lesson.objects.all()
     pagination_class = LessonPaginator
@@ -28,6 +32,8 @@ class LessonListAPIView(generics.ListAPIView):
 
 
 class LessonRetrieveAPIView(generics.RetrieveAPIView):
+    """ Get lesson """
+
     serializer_class = LessonSerializer
     queryset = Lesson.objects.all()
 
@@ -36,6 +42,8 @@ class LessonRetrieveAPIView(generics.RetrieveAPIView):
 
 
 class LessonUpdateAPIView(generics.UpdateAPIView):
+    """ Update lesson """
+
     serializer_class = LessonSerializer
     queryset = Lesson.objects.all()
 
@@ -44,6 +52,8 @@ class LessonUpdateAPIView(generics.UpdateAPIView):
 
 
 class LessonDestroyAPIView(generics.DestroyAPIView):
+    """ Delete lesson """
+
     queryset = Lesson.objects.all()
 
     # Можно удалять только создателю

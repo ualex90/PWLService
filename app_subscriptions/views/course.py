@@ -7,6 +7,8 @@ from app_users.permissions import IsModerator, IsOwner
 
 
 class SubscribeCreateCourseAPIView(generics.CreateAPIView):
+    """ Subscribe to the course """
+
     queryset = Subscription.objects.all()
     serializer_class = SubscribeCourseSerializer
 
@@ -22,6 +24,8 @@ class SubscribeCreateCourseAPIView(generics.CreateAPIView):
 
 
 class SubscribeDestroyCourseAPIView(generics.DestroyAPIView):
+    """ Unsubscribe to the course """
+
     queryset = Subscription.objects.all()
     serializer_class = SubscribeCourseSerializer
 
