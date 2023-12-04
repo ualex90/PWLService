@@ -22,4 +22,4 @@ class LessonCreateSerializer(serializers.ModelSerializer):
 class LessonListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Lesson
-        fields = ('id', 'name', 'description', )
+        fields = ('id', 'course', 'name', 'description', )

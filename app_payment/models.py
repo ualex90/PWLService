@@ -66,7 +66,8 @@ class StripeSession(models.Model):
         User,
         on_delete=models.CASCADE,
         verbose_name=_('User'),
-        related_name='payment_sessions'
+        related_name='payment_sessions',
+        **NULLABLE
     )
 
     create_date = models.DateTimeField(
@@ -77,7 +78,8 @@ class StripeSession(models.Model):
     payment_amount = models.DecimalField(
         max_digits=8,
         decimal_places=2,
-        verbose_name=_("Payment amount")
+        verbose_name=_("Payment amount"),
+        **NULLABLE
     )
 
     course = models.ForeignKey(
@@ -96,5 +98,6 @@ class StripeSession(models.Model):
 
     session_url = models.CharField(
         max_length=400,
-        verbose_name=_("Session URL")
+        verbose_name=_("Session URL"),
+        **NULLABLE
     )
