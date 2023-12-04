@@ -28,4 +28,6 @@ password = 'admin'
 ivanov@sky.pro - MODERATOR
 petrov@sky.pro
 sidorov@sky.pro
+
+password - 123qwe
 ```
