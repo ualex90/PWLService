@@ -13,6 +13,7 @@ python3 manage.py ccusers
 При создании пользователей в консоль выведутся email, пароли и группы
 
 <h3>Заполнение базы данных из фикстур</h3>
+
 ```bash
 python3 manage.py loaddata fixtures/db.json
 ```
