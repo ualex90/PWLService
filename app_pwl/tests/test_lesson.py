@@ -168,11 +168,13 @@ class LessonTest(APITestCase):
                         [
                             {
                                 'id': self.lesson1.id,
+                                'course': self.course.id,
                                 'name': 'Test Lesson 1',
                                 'description': 'Description Test Lesson 1'
                             },
                             {
                                 'id': self.lesson2.id,
+                                'course': self.course.id,
                                 'name': 'Test Lesson 2',
                                 'description': 'Description Test Lesson 2'
                             }
@@ -221,6 +223,10 @@ class LessonTest(APITestCase):
                     'image': None,
                     'video': None,
                     'course': self.course.id,
+                    'currency': 'RUB',
+                    'amount': 0,
+                    'stripe_product_id': None,
+                    'stripe_prise_id': None,
                     'owner': self.user_1.id
                 }
             )
@@ -285,7 +291,11 @@ class LessonTest(APITestCase):
                 'image': None,
                 'video': None,
                 'course': self.course.id,
-                'owner': self.user_1.id
+                'currency': 'RUB',
+                'amount': 0,
+                'stripe_product_id': None,
+                'stripe_prise_id': None,
+                'owner': self.user_1.id,
             }
         )
 
@@ -319,6 +329,10 @@ class LessonTest(APITestCase):
                 'image': None,
                 'video': None,
                 'course': self.course.id,
+                'currency': 'RUB',
+                'amount': 0,
+                'stripe_product_id': None,
+                'stripe_prise_id': None,
                 'owner': self.user_1.id
             }
         )

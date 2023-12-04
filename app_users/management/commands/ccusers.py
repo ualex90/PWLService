@@ -1,3 +1,4 @@
+from django.contrib.auth.models import Group
 from django.core.management import BaseCommand
 
 from app_users.models import User
@@ -6,6 +7,9 @@ from app_users.models import User
 class Command(BaseCommand):
 
     def handle(self, *args, **kwargs):
+
+        group_moderator = Group.objects.create(name="Moderator")
+
         users = [
             {
                 'email': 'ivanov@sky.pro',
@@ -14,6 +18,7 @@ class Command(BaseCommand):
                 'is_staff': False,
                 'is_active': True,
                 'password': '123qwe',
+                'is_moderator': True,
             },
             {
                 'email': 'petrov@sky.pro',
@@ -22,6 +27,7 @@ class Command(BaseCommand):
                 'is_staff': False,
                 'is_active': True,
                 'password': '123qwe',
+                'is_moderator': False,
             },
             {
                 'email': 'sidorov@sky.pro',
@@ -30,6 +36,7 @@ class Command(BaseCommand):
                 'is_staff': False,
                 'is_active': True,
                 'password': '123qwe',
+                'is_moderator': False,
             },
         ]
         count = 0
@@ -42,7 +49,12 @@ class Command(BaseCommand):
                 is_active=i.get('is_active'),
             )
             user.set_password(i.get('password'))
+
+            if i.get('is_moderator'):
+                user.groups.add(group_moderator)
+
             user.save()
             count += 1
 
-            print(f'{count}. email: {user.email}, password: {i.get("password")};')
+            print(f'{count}. email: {user.email}, password: {i.get("password")}'
+                  f'{"; MODERATOR" if i.get("is_moderator") else ""};')

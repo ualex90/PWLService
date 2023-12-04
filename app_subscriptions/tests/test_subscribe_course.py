@@ -317,6 +317,10 @@ class SubscriptionTest(APITestCase):
                         'name': 'Test Course_1',
                         'description': 'Description Test Course_1',
                         'image': None,
+                        'currency': 'RUB',
+                        'amount': 0,
+                        'stripe_product_id': None,
+                        'stripe_prise_id': None,
                         'owner': self.user_1.id
                     },
                     {
@@ -326,6 +330,10 @@ class SubscriptionTest(APITestCase):
                         'name': 'Test Course_2',
                         'description': 'Description Test Course_2',
                         'image': None,
+                        'currency': 'RUB',
+                        'amount': 0,
+                        'stripe_product_id': None,
+                        'stripe_prise_id': None,
                         'owner': self.user_1.id
                     },
                     {
@@ -335,6 +343,10 @@ class SubscriptionTest(APITestCase):
                         'name': 'Test Course_3',
                         'description': 'Description Test Course_3',
                         'image': None,
+                        'currency': 'RUB',
+                        'amount': 0,
+                        'stripe_product_id': None,
+                        'stripe_prise_id': None,
                         'owner': self.user_2.id
                     }
                 ]
@@ -363,6 +375,10 @@ class SubscriptionTest(APITestCase):
                         'name': 'Test Course_1',
                         'description': 'Description Test Course_1',
                         'image': None,
+                        'currency': 'RUB',
+                        'amount': 0,
+                        'stripe_product_id': None,
+                        'stripe_prise_id': None,
                         'owner': self.user_1.id
                     },
                     {
@@ -372,6 +388,10 @@ class SubscriptionTest(APITestCase):
                         'name': 'Test Course_2',
                         'description': 'Description Test Course_2',
                         'image': None,
+                        'currency': 'RUB',
+                        'amount': 0,
+                        'stripe_product_id': None,
+                        'stripe_prise_id': None,
                         'owner': self.user_1.id
                     },
                     {
@@ -381,6 +401,10 @@ class SubscriptionTest(APITestCase):
                         'name': 'Test Course_3',
                         'description': 'Description Test Course_3',
                         'image': None,
+                        'currency': 'RUB',
+                        'amount': 0,
+                        'stripe_product_id': None,
+                        'stripe_prise_id': None,
                         'owner': self.user_2.id
                     }
                 ]

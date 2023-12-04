@@ -1,6 +1,7 @@
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
 
+from app_payment.services import create_stripe_product, create_stripe_prise
 from app_pwl.models import Lesson
 from app_pwl.paginators import LessonPaginator
 from app_users.permissions import IsModerator, IsOwner
@@ -8,6 +9,8 @@ from app_pwl.serializers.lesson import LessonSerializer, LessonListSerializer, L
 
 
 class LessonCreateAPIView(generics.CreateAPIView):
+    """ Create a new lesson """
+
     serializer_class = LessonCreateSerializer
 
     # Можно создавать только авторизованным пользователям не являющимся модераторами
@@ -15,11 +18,20 @@ class LessonCreateAPIView(generics.CreateAPIView):
 
     def perform_create(self, serializer):
         new_lesson = serializer.save()
+
+        if new_lesson.amount:
+            # Создание продукта на сервисе "stripe.com"
+            new_lesson.stripe_product_id = create_stripe_product(new_lesson.name)
+            # Назначение цены продукта на сервисе "stripe.com"
+            new_lesson.stripe_prise_id = create_stripe_prise(new_lesson)
+
         new_lesson.owner = self.request.user
         new_lesson.save()
 
 
 class LessonListAPIView(generics.ListAPIView):
+    """ Get lesson list """
+
     serializer_class = LessonListSerializer
     queryset = Lesson.objects.all()
     pagination_class = LessonPaginator
@@ -28,6 +40,8 @@ class LessonListAPIView(generics.ListAPIView):
 
 
 class LessonRetrieveAPIView(generics.RetrieveAPIView):
+    """ Get lesson """
+
     serializer_class = LessonSerializer
     queryset = Lesson.objects.all()
 
@@ -36,6 +50,8 @@ class LessonRetrieveAPIView(generics.RetrieveAPIView):
 
 
 class LessonUpdateAPIView(generics.UpdateAPIView):
+    """ Update lesson """
+
     serializer_class = LessonSerializer
     queryset = Lesson.objects.all()
 
@@ -44,6 +60,8 @@ class LessonUpdateAPIView(generics.UpdateAPIView):
 
 
 class LessonDestroyAPIView(generics.DestroyAPIView):
+    """ Delete lesson """
+
     queryset = Lesson.objects.all()
 
     # Можно удалять только создателю
