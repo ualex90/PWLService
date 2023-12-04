@@ -1,6 +1,7 @@
 from django.db.models import Count
 from rest_framework import viewsets
 
+from app_payment.services import create_stripe_product, create_stripe_prise
 from app_pwl.models import Course
 from app_pwl.paginators import CoursePaginator
 from app_users.permissions import IsModerator, IsOwner
@@ -29,9 +30,16 @@ class CourseViewSet(viewsets.ModelViewSet):
         # до создания объекта вызываем проверку на права доступа
         self.check_permissions(self.request)
 
-        new_lesson = serializer.save()
-        new_lesson.owner = self.request.user
-        new_lesson.save()
+        new_course = serializer.save()
+
+        if new_course.amount:
+            # Создание продукта на сервисе "stripe.com"
+            new_course.stripe_product_id = create_stripe_product(new_course.name)
+            # Назначение цены продукта на сервисе "stripe.com"
+            new_course.stripe_prise_id = create_stripe_prise(new_course)
+
+        new_course.owner = self.request.user
+        new_course.save()
 
     def create(self, request, *args, **kwargs):
         """ Create new course """

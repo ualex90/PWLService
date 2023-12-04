@@ -33,14 +33,11 @@ class StripeTest(APITestCase):
         # Аутентифицируем обычного пользователя
         self.client.force_authenticate(user=self.user_1)
 
-        # Считаем количество уроков в базе данных
-        lesson_count = Lesson.objects.all().count()
-
         data = {
             "name": "Test Lesson",
             "description": "Description Test Lesson",
             "course": self.course_1.id,
-            "amount": 5000
+            "amount": 250
         }
 
         response = self.client.post(
@@ -57,4 +54,34 @@ class StripeTest(APITestCase):
         # Проверяем что поле stripe_prise_id созданного объекта не None
         self.assertTrue(
             Lesson.objects.get(pk=response.json().get('id')).stripe_prise_id
+        )
+
+    def test_course_create(self):
+        """
+        Тестирование создания урока на "stripe.com"
+        """
+
+        # Аутентифицируем обычного пользователя
+        self.client.force_authenticate(user=self.user_1)
+
+        data = {
+            "name": "Test Course",
+            "description": "Description Test Course",
+            "amount": 2500
+        }
+
+        response = self.client.post(
+            "/course/",
+            data=data
+        )
+
+        # Проверяем что объект успешно создан
+        self.assertEquals(
+            response.status_code,
+            status.HTTP_201_CREATED
+        )
+
+        # Проверяем что поле stripe_prise_id созданного объекта не None
+        self.assertTrue(
+            Course.objects.get(pk=response.json().get('id')).stripe_prise_id
         )
