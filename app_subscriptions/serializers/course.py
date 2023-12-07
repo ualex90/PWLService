@@ -7,3 +7,4 @@ class SubscribeCourseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Subscription
         fields = '__all__'
+        read_only_fields = ('user', )

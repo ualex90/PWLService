@@ -23,7 +23,7 @@ class CourseListSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
     def get_is_subscribe(self, instance):
-        return bool(instance.subscribers.filter(owner=self.context.get("request").user))
+        return bool(instance.subscribers.filter(user=self.context.get("request").user))
 
 
 class CourseRetrieveSerializer(serializers.ModelSerializer):
