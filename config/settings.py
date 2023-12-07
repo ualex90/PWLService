@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'django_filters',
     'rest_framework_simplejwt',
     'drf_yasg',
+    'django_celery_beat',
 
     'app_users',
     'app_pwl',
@@ -127,7 +128,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'ru-ru'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Vladivostok'
 
 USE_I18N = True
 
@@ -168,3 +169,14 @@ SIMPLE_JWT = {
 
 # Stripe settings
 STRIPE_API_KEY = env('STRIPE_API_KEY')
+
+# Celery settings
+
+CELERY_BROKER_URL = 'redis://localhost:6379/0'  # URL-адрес брокера сообщений
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'  # URL-адрес брокера результатов, также Redis
+CELERY_TIMEZONE = "Asia/Vladivostok"  # Часовой пояс для работы Celery
+CELERY_TASK_TRACK_STARTED = True  # Флаг отслеживания выполнения задач
+CELERY_TASK_TIME_LIMIT = 30 * 60  # Максимальное время на выполнение задачи
+
+# Telegram settings
+TELEGRAM_BOT_TOKEN = "6394829312:AAGlg1prs7HNYqkjUgBBq08mswTWviXq4Ck"
