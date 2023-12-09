@@ -3,7 +3,7 @@ from rest_framework.permissions import IsAuthenticated
 
 from app_subscriptions.models import Subscription
 from app_subscriptions.serializers.course import SubscribeCourseSerializer
-from app_users.permissions import IsModerator, IsOwner
+from app_users.permissions import IsModerator, IsSubscriber
 
 
 class SubscribeCreateCourseAPIView(generics.CreateAPIView):
@@ -17,9 +17,9 @@ class SubscribeCreateCourseAPIView(generics.CreateAPIView):
 
     # пользователь создавший подписку, автоматически попадает в поле owner
     def perform_create(self, serializer):
-        if not self.queryset.filter(owner=self.request.user, course=self.request.data.get('course')):
+        if not self.queryset.filter(user=self.request.user, course=self.request.data.get('course')).exists():
             new_subscribe = serializer.save()
-            new_subscribe.owner = self.request.user
+            new_subscribe.user = self.request.user
             new_subscribe.save()
 
 
@@ -30,4 +30,4 @@ class SubscribeDestroyCourseAPIView(generics.DestroyAPIView):
     serializer_class = SubscribeCourseSerializer
 
     # Удалить подписку может только тот кто ее создал
-    permission_classes = [IsOwner]
+    permission_classes = [IsSubscriber]

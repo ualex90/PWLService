@@ -7,11 +7,15 @@ from config import settings
 
 
 class Subscription(models.Model):
-    owner = models.ForeignKey(settings.AUTH_USER_MODEL,
-                              on_delete=models.CASCADE,
-                              verbose_name=_('Subscriber'),
-                              related_name="courses",
-                              **NULLABLE)
-    course = models.ForeignKey(Course, on_delete=models.CASCADE,
-                               verbose_name=_('Course'),
-                               related_name="subscribers",)
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        verbose_name=_('Subscriber'),
+        related_name="courses",
+        **NULLABLE
+    )
+    course = models.ForeignKey(
+        Course, on_delete=models.CASCADE,
+        verbose_name=_('Course'),
+        related_name="subscribers",
+    )

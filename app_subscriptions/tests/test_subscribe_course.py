@@ -187,7 +187,7 @@ class SubscriptionTest(APITestCase):
 
         # Создаем подписку от имени user_1
         subscription = Subscription.objects.create(
-            owner=self.user_1,
+            user=self.user_1,
             course=self.course_1,
         )
 
@@ -220,7 +220,7 @@ class SubscriptionTest(APITestCase):
 
         # Создаем подписку от имени user_1
         subscription = Subscription.objects.create(
-            owner=self.user_1,
+            user=self.user_1,
             course=self.course_1,
         )
 
@@ -254,7 +254,7 @@ class SubscriptionTest(APITestCase):
 
         # Создаем подписку от имени user_1
         subscription = Subscription.objects.create(
-            owner=self.user_1,
+            user=self.user_1,
             course=self.course_1,
         )
 
@@ -291,7 +291,7 @@ class SubscriptionTest(APITestCase):
 
         # Создаем подписку от имени user_2 на course_2
         subscription = Subscription.objects.create(
-            owner=self.user_2,
+            user=self.user_2,
             course=self.course_2,
         )
 

@@ -4,6 +4,7 @@ from rest_framework import viewsets
 from app_payment.services import create_stripe_product, create_stripe_prise
 from app_pwl.models import Course
 from app_pwl.paginators import CoursePaginator
+from app_subscriptions.tasks import curse_update_message
 from app_users.permissions import IsModerator, IsOwner
 from app_pwl.serializers.course import CourseSerializer, CourseListSerializer, CourseRetrieveSerializer
 
@@ -72,6 +73,7 @@ class CourseViewSet(viewsets.ModelViewSet):
 
         # Можно изменять только создателю или модератору
         self.permission_classes = [IsOwner | IsModerator]
+        curse_update_message.delay(self.get_object().id)
         return super().update(request, *args, **kwargs)
 
     def destroy(self, request, *args, **kwargs):
