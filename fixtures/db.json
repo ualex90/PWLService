@@ -1,5 +1,31 @@
 [
   {
+    "model": "admin.logentry",
+    "pk": 1,
+    "fields": {
+      "action_time": "2023-12-09T11:36:27.663Z",
+      "user": 1,
+      "content_type": 12,
+      "object_id": "2",
+      "object_repr": "* * 1 * * (m/h/dM/MY/d) Asia/Vladivostok",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 2,
+    "fields": {
+      "action_time": "2023-12-09T11:37:42.663Z",
+      "user": 1,
+      "content_type": 14,
+      "object_id": "2",
+      "object_repr": "Проверка активности пользователя в течении месяца: * * 1 * * (m/h/dM/MY/d) Asia/Vladivostok",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
     "model": "auth.group",
     "pk": 1,
     "fields": {
@@ -8,11 +34,106 @@
     }
   },
   {
+    "model": "sessions.session",
+    "pk": "m3hdbkpbbuq1ubbagyld628i6gz2tlhu",
+    "fields": {
+      "session_data": ".eJxVjDsOwjAQBe_iGln-x6ak5wzW7nqDA8iR4qRC3B0ipYD2zcx7iQzbWvPWeclTEWehxel3Q6AHtx2UO7TbLGlu6zKh3BV50C6vc-Hn5XD_Dir0-q0HGsGmgqhigOAGay2XaBlGQ0SalDMqBR-N9oyJMXqDxvmASSXUrMX7A_AQN8o:1rBvco:xmw-YBYiiYdMWsx5cMQOaCCFiSfFvBv-U7vVSIHdssc",
+      "expire_date": "2023-12-23T11:36:02.764Z"
+    }
+  },
+  {
+    "model": "django_celery_beat.crontabschedule",
+    "pk": 1,
+    "fields": {
+      "minute": "0",
+      "hour": "4",
+      "day_of_week": "*",
+      "day_of_month": "*",
+      "month_of_year": "*",
+      "timezone": "Asia/Vladivostok"
+    }
+  },
+  {
+    "model": "django_celery_beat.crontabschedule",
+    "pk": 2,
+    "fields": {
+      "minute": "*",
+      "hour": "*",
+      "day_of_week": "*",
+      "day_of_month": "1",
+      "month_of_year": "*",
+      "timezone": "Asia/Vladivostok"
+    }
+  },
+  {
+    "model": "django_celery_beat.periodictasks",
+    "pk": 1,
+    "fields": {
+      "last_update": "2023-12-09T11:49:03.318Z"
+    }
+  },
+  {
+    "model": "django_celery_beat.periodictask",
+    "pk": 1,
+    "fields": {
+      "name": "celery.backend_cleanup",
+      "task": "celery.backend_cleanup",
+      "interval": null,
+      "crontab": 1,
+      "solar": null,
+      "clocked": null,
+      "args": "[]",
+      "kwargs": "{}",
+      "queue": null,
+      "exchange": null,
+      "routing_key": null,
+      "headers": "{}",
+      "priority": null,
+      "expires": null,
+      "expire_seconds": 43200,
+      "one_off": false,
+      "start_time": null,
+      "enabled": true,
+      "last_run_at": null,
+      "total_run_count": 0,
+      "date_changed": "2023-12-09T11:49:03.318Z",
+      "description": ""
+    }
+  },
+  {
+    "model": "django_celery_beat.periodictask",
+    "pk": 2,
+    "fields": {
+      "name": "Проверка активности пользователя в течении месяца",
+      "task": "app_users.tasks.user_login_per_month",
+      "interval": null,
+      "crontab": 2,
+      "solar": null,
+      "clocked": null,
+      "args": "[]",
+      "kwargs": "{}",
+      "queue": null,
+      "exchange": null,
+      "routing_key": null,
+      "headers": "{}",
+      "priority": null,
+      "expires": null,
+      "expire_seconds": null,
+      "one_off": false,
+      "start_time": "2023-12-09T11:37:40Z",
+      "enabled": true,
+      "last_run_at": "2023-12-09T11:37:47.132Z",
+      "total_run_count": 1,
+      "date_changed": "2023-12-09T11:38:07.189Z",
+      "description": ""
+    }
+  },
+  {
     "model": "app_users.user",
     "pk": 1,
     "fields": {
       "password": "pbkdf2_sha256$600000$MKfFH9ZCnWPQXYdwpPiGNO$M45HdQLFaqR2GErCB+UweOYyNIiQOOsCjaFhCtOkbjQ=",
-      "last_login": null,
+      "last_login": "2023-12-09T11:36:02.762Z",
       "is_superuser": true,
       "first_name": "Admin",
       "last_name": "SkyPro",
@@ -94,7 +215,7 @@
     "pk": 1,
     "fields": {
       "name": "Курс 1",
-      "description": "Описание Курса 1",
+      "description": "Курс программирования на языке Python",
       "image": "",
       "owner": 4,
       "amount": 4400,
@@ -108,7 +229,7 @@
     "pk": 2,
     "fields": {
       "name": "Курс 2",
-      "description": "Описание Курса 2",
+      "description": "Курс программирования на языке Си",
       "image": "",
       "owner": 3,
       "amount": 4400,
@@ -138,8 +259,8 @@
     "model": "app_pwl.lesson",
     "pk": 2,
     "fields": {
-      "name": "Урок 2",
-      "description": "Описание урока 2",
+      "name": "Урок 1",
+      "description": "Что такое Си?",
       "course": 1,
       "body": "Тестовая запись урока для проверки работоспособности. Это поле содежит полезные/безполезные данные. Проверим, попробуем с разными знаками! Зачем? А так надо. Проверим ссылку которую можно: https://youtu.be/82DKIKRgAdw?si=3MzKzMAUA47qpUD- и низя",
       "image": "",
@@ -313,6 +434,30 @@
       "course": 1,
       "lesson": null,
       "session_url": "https://checkout.stripe.com/c/pay/cs_test_a1sNTURfwGjw1gMjgpCvAZYpnH1T0KYDLzo4fNCZPcYOa9cxEX0XTyiCG0#fidkdWxOYHwnPyd1blpxYHZxWjA0Sk9QS1xHRkN8ZEhofE9ASjVjN0ZcUVBWblZzdnVhUzxqbmwzUlZvZkdjYnw1d0xTX3ZJMD1EcEZAMkRJQ3BVNzRnRDBmSmhPfVZqMmFrZ1VQN1Q2VH1GNTVLMW1ff0BzYCcpJ2N3amhWYHdzYHcnP3F3cGApJ2lkfGpwcVF8dWAnPyd2bGtiaWBabHFgaCcpJ2BrZGdpYFVpZGZgbWppYWB3dic%2FcXdwYHgl"
+    }
+  },
+  {
+    "model": "app_subscriptions.subscription",
+    "pk": 1,
+    "fields": {
+      "user": 3,
+      "course": 1
+    }
+  },
+  {
+    "model": "app_subscriptions.subscription",
+    "pk": 2,
+    "fields": {
+      "user": 3,
+      "course": 2
+    }
+  },
+  {
+    "model": "app_subscriptions.subscription",
+    "pk": 5,
+    "fields": {
+      "user": 4,
+      "course": 1
     }
   }
 ]
