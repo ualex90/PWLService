@@ -6,6 +6,7 @@ from app_pwl.models import Lesson
 from app_pwl.paginators import LessonPaginator
 from app_users.permissions import IsModerator, IsOwner
 from app_pwl.serializers.lesson import LessonSerializer, LessonListSerializer, LessonCreateSerializer
+from app_subscriptions.tasks import curse_update_message
 
 
 class LessonCreateAPIView(generics.CreateAPIView):
@@ -57,6 +58,10 @@ class LessonUpdateAPIView(generics.UpdateAPIView):
 
     # Можно изменять только создателю или модератору
     permission_classes = [IsOwner | IsModerator]
+
+    def perform_update(self, serializer):
+        serializer.save()
+        curse_update_message.delay(self.get_object().course.id)
 
 
 class LessonDestroyAPIView(generics.DestroyAPIView):
